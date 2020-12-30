@@ -1,8 +1,6 @@
-package io.helidon.data.examples.service;
+package com.shubham.InventoryJpa.Entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
 import org.hibernate.annotations.Check;
 
 import javax.persistence.Column;
@@ -13,9 +11,6 @@ import java.io.Serializable;
 
 @Entity(name = "inventory")
 @Table(name = "inventory")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Inventory implements Serializable
 {
 

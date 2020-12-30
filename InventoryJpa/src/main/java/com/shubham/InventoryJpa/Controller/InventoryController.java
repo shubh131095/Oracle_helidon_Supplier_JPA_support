@@ -10,31 +10,33 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.websocket.server.PathParam;
+
 @RestController
-@RequestMapping("/inventory")
+@RequestMapping("/")
 public class InventoryController
 {
   @Autowired
   InventoryService inventoryService;
 
-  @PostMapping(value = "/{inventoryId}")
-  public Inventory addinventory( @PathVariable ("inventoryId") String inventoryId )
+  @PostMapping(value = "/addinventory")
+  public String addinventory( @PathParam("itemid") String inventoryId )
   {
     System.out.println(
       "here add"
     );
         return this.inventoryService.addinventory( inventoryId );
   }
-  @DeleteMapping(value = "/{inventoryId}")
-  public Inventory deleteInventory( @PathVariable ("inventoryId") String inventoryId )
+  @DeleteMapping(value = "/deleteInventory")
+  public String deleteInventory( @PathParam("itemid") String inventoryId )
   {
     System.out.println(
       "here delete"
     );
     return this.inventoryService.deleteInventory( inventoryId );
   }
-  @GetMapping(value = "/{inventoryId}")
-  public Inventory getInventory( @PathVariable ("inventoryId") String inventoryId )
+  @GetMapping(value = "/getInventory")
+  public String getInventory( @PathParam("itemid") String inventoryId )
   {
     System.out.println(
       "here get"

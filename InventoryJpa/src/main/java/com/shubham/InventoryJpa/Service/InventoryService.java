@@ -17,52 +17,55 @@ public class InventoryService
   @Transactional(
     dontRollbackOn = {EntityNotFoundException.class}
   )
-  public Inventory addinventory( String inventoryId)
+  public String addinventory( String inventoryId)
   {
+    System.out.println("here in add service");
     Inventory inv = null;
       if(inventoryId == null || inventoryId.isEmpty())
       {
-        return new Inventory("",null,0);
+        return "inventoryCount for" + " " + "is" + 0;
       }
       else
       {
 
           inventoryRepository.setInventoryCountById( inventoryId );
           inv = inventoryRepository.findById( inventoryId ).orElse( new Inventory() );
-          return inv;
+          return "inventoryCount for" + inv.getInventoryId() + "is" + inv.getInventoryCount();
       }
   }
 
   @Transactional(
     dontRollbackOn = {EntityNotFoundException.class}
   )
-  public Inventory deleteInventory( String inventoryId)
+  public String deleteInventory( String inventoryId)
   {
+    System.out.println("here in delete service");
     Inventory inv = null;
     if(inventoryId == null || inventoryId.isEmpty())
     {
-      return new Inventory("",null,0);
+      return "inventoryCount for" + " "+ "is" + 0;
     }
     else
     {
       inventoryRepository.deleteInventoryCountById( inventoryId );
       inv = inventoryRepository.findById( inventoryId ).orElse( new Inventory() );
-      return inv;
+      return "inventoryCount for" + inv.getInventoryId() + "is" + inv.getInventoryCount();
     }
   }
 
 
-  public Inventory getInventory( String inventoryId)
+  public String getInventory( String inventoryId)
   {
+    System.out.println("here in get service");
     Inventory inv = null;
     if(inventoryId == null || inventoryId.isEmpty())
     {
-      return new Inventory("",null,0);
+      return "inventoryCount for" +  " " + "is" + 0 ;
     }
     else
     {
       inv = inventoryRepository.findById( inventoryId ).orElse( new Inventory() );
-      return inv;
+      return "inventoryCount for" + inv.getInventoryId() + "is" + inv.getInventoryCount();
     }
   }
 }
