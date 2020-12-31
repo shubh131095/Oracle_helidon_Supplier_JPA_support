@@ -1,5 +1,6 @@
 package com.shubham.InventoryJpa.Controller;
 
+
 import com.shubham.InventoryJpa.Service.InventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -10,12 +11,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
+
 @RestController
 @RequestMapping("/")
 public class InventoryController
 {
   @Autowired
   InventoryService inventoryService;
+
 
   @PostMapping(value = "/addInventory")
   public String addinventory( @RequestParam("itemid") String inventoryId )
@@ -25,13 +28,13 @@ public class InventoryController
     );
         return this.inventoryService.addInventory( inventoryId );
   }
-  @DeleteMapping(value = "/deleteInventory")
-  public String deleteInventory( @RequestParam("itemid") String inventoryId )
+  @DeleteMapping(value = "/removeInventory")
+  public String removeInventory( @RequestParam("itemid") String inventoryId )
   {
     System.out.println(
       "here delete"
     );
-    return this.inventoryService.deleteInventory( inventoryId );
+    return this.inventoryService.removeInventory( inventoryId );
   }
   @GetMapping(value = "/getInventory")
   public String getInventory( @RequestParam("itemid") String inventoryId )

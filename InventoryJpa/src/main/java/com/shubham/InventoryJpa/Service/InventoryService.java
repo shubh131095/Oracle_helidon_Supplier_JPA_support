@@ -3,10 +3,11 @@ package com.shubham.InventoryJpa.Service;
 import com.shubham.InventoryJpa.Entity.Inventory;
 import com.shubham.InventoryJpa.Repository.InventoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
+import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+
 
 @Service
 public class InventoryService
@@ -14,7 +15,8 @@ public class InventoryService
   @Autowired
   private InventoryRepository inventoryRepository;
 
-
+  @Autowired
+  DataSourceConfig _dataSourceConfig;
 
   @Transactional(
     dontRollbackOn = {EntityNotFoundException.class}
@@ -34,7 +36,6 @@ public class InventoryService
 
           inventoryRepository.setInventoryCountById( inventoryId );
           inv = inventoryRepository.findById( inventoryId ).orElse( new Inventory() );
-        inventoryRepository.flush();
           return "inventoryCount for" + inv.getInventoryId() + "is" + inv.getInventoryCount();
       }
   }
@@ -42,7 +43,7 @@ public class InventoryService
   @Transactional(
     dontRollbackOn = {EntityNotFoundException.class}
   )
-  public String deleteInventory( String inventoryId)
+  public String removeInventory( String inventoryId)
   {
     System.out.println("here in delete service");
     System.out.println("Inventory value in service:- " + inventoryId );
@@ -55,7 +56,6 @@ public class InventoryService
     {
       inventoryRepository.deleteInventoryCountById( inventoryId );
       inv = inventoryRepository.findById( inventoryId ).orElse( new Inventory() );
-      inventoryRepository.flush();
       return "inventoryCount for" + inv.getInventoryId() + "is" + inv.getInventoryCount();
     }
   }
@@ -77,7 +77,6 @@ public class InventoryService
     {
       inv = inventoryRepository.findById( inventoryId ).orElse( new Inventory() );
       System.out.println(inv);
-      inventoryRepository.flush();
       return "inventoryCount for" + inv.getInventoryId() + "is" + inv.getInventoryCount();
     }
   }
