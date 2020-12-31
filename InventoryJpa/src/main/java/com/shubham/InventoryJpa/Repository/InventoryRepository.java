@@ -11,10 +11,10 @@ public interface InventoryRepository extends JpaRepository<Inventory,String>
 {
 
   @Modifying
-  @Query("update inventory set inventorycount = inventorycount+1 where inventoryid = ?1")
+  @Query("update inventory set inventoryCount = inventoryCount+1 where inventoryId = ?1")
   void setInventoryCountById(String inventoryId);
 
   @Modifying
-  @Query("update inventory set inventorycount = inventorycount - 1 where inventoryid = ?1 and inventorycount >0")
+  @Query("update inventory set inventoryCount = inventoryCount - 1 where inventoryId = ?1 and inventoryCount >0")
   void deleteInventoryCountById(String inventoryId);
 }

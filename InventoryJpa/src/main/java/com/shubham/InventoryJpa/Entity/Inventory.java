@@ -10,23 +10,23 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity(name = "inventory")
-@Table(name = "inventory")
+@Table(name = "INVENTORY")
 public class Inventory implements Serializable
 {
 
   @Id
   @Column(
-    name = "inventoryid"
+    name = "INVENTORYID"
   )
   String inventoryId;
 
   @Column(
-    name = "inventorylocation"
+    name = "INVENTORYLOCATION"
   )
   String inventoryLocation;
 
   @Column(
-    name = "inventorycount"
+    name = "INVENTORYCOUNT"
   )
     @Check(
       constraints = "postive_count check(inventorycount>=0)"
@@ -73,6 +73,16 @@ public class Inventory implements Serializable
   public Inventory()
   {
     super();
+  }
+
+  @Override
+  public String toString()
+  {
+    return "Inventory{" +
+           "inventoryId='" + inventoryId + '\'' +
+           ", inventoryLocation='" + inventoryLocation + '\'' +
+           ", inventoryCount=" + inventoryCount +
+           '}';
   }
 }
 

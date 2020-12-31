@@ -14,12 +14,16 @@ public class InventoryService
   @Autowired
   private InventoryRepository inventoryRepository;
 
+
+
   @Transactional(
     dontRollbackOn = {EntityNotFoundException.class}
   )
-  public String addinventory( String inventoryId)
+  public String addInventory( String inventoryId)
   {
+
     System.out.println("here in add service");
+    System.out.println("Inventory value in service:- " + inventoryId );
     Inventory inv = null;
       if(inventoryId == null || inventoryId.isEmpty())
       {
@@ -30,6 +34,7 @@ public class InventoryService
 
           inventoryRepository.setInventoryCountById( inventoryId );
           inv = inventoryRepository.findById( inventoryId ).orElse( new Inventory() );
+        inventoryRepository.flush();
           return "inventoryCount for" + inv.getInventoryId() + "is" + inv.getInventoryCount();
       }
   }
@@ -40,6 +45,7 @@ public class InventoryService
   public String deleteInventory( String inventoryId)
   {
     System.out.println("here in delete service");
+    System.out.println("Inventory value in service:- " + inventoryId );
     Inventory inv = null;
     if(inventoryId == null || inventoryId.isEmpty())
     {
@@ -49,6 +55,7 @@ public class InventoryService
     {
       inventoryRepository.deleteInventoryCountById( inventoryId );
       inv = inventoryRepository.findById( inventoryId ).orElse( new Inventory() );
+      inventoryRepository.flush();
       return "inventoryCount for" + inv.getInventoryId() + "is" + inv.getInventoryCount();
     }
   }
@@ -56,15 +63,21 @@ public class InventoryService
 
   public String getInventory( String inventoryId)
   {
+
+
     System.out.println("here in get service");
+    System.out.println("Inventory value in service:- " + inventoryId );
+    System.out.println("inventoryId :- " +inventoryId);
     Inventory inv = null;
     if(inventoryId == null || inventoryId.isEmpty())
     {
-      return "inventoryCount for" +  " " + "is" + 0 ;
+      return "suckerr";
     }
     else
     {
       inv = inventoryRepository.findById( inventoryId ).orElse( new Inventory() );
+      System.out.println(inv);
+      inventoryRepository.flush();
       return "inventoryCount for" + inv.getInventoryId() + "is" + inv.getInventoryCount();
     }
   }
