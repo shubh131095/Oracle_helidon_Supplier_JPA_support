@@ -19,13 +19,6 @@
 
 	<properties>
 		<java.version>11</java.version>
-		<mainClass>com.shubham.InventoryJpa.InventoryJpaApplication</mainClass>
-		<libs.classpath.prefix>libs</libs.classpath.prefix>
-		<copied.libs.dir>${project.build.directory}/${libs.classpath.prefix}</copied.libs.dir>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<argLine>-Dfile.encoding=UTF-8</argLine>
-		
 	</properties>
 
 	<build>
@@ -47,94 +40,7 @@
 					<artifactId>maven-resources-plugin</artifactId>
 					<version>3.1.0</version>
 				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-jar-plugin</artifactId>
-					<version>3.1.2</version>
-					<configuration>
-						<archive>
-							<manifest>
-								<addClasspath>true</addClasspath>
-								<classpathPrefix>${libs.classpath.prefix}</classpathPrefix>
-								<mainClass>${mainClass}</mainClass>
-							</manifest>
-						</archive>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>com.spotify</groupId>
-					<artifactId>docker-maven-plugin</artifactId>
-					<version>1.2.2</version>
-					<configuration>
-						<imageName>${docker.image.prefix}/${project.artifactId}</imageName>
-						<baseImage>openjdk:11</baseImage>
-						<entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
-						<resources>
-							<resource>
-								<targetPath>/</targetPath>
-								<directory>${project.build.directory}</directory>
-							</resource>
-						</resources>
-						<imageTags>
-							<imageTag>0.1</imageTag>
-						</imageTags>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-resources-plugin</artifactId>
-					<executions>
-						<execution>
-							<id>copy-dockerfile</id>
-							<phase>process-resources</phase>
-							<goals>
-								<goal>copy-resources</goal>
-							</goals>
-							<configuration>
-								<outputDirectory>${project.build.directory}</outputDirectory>
-								<resources>
-									<resource>
-										<directory>src/main/docker</directory>
-										<filtering>true</filtering>
-										<includes>
-											<include>Dockerfile</include>
-										</includes>
-									</resource>
-									<resource>
-										<filtering>true</filtering>
-										<directory>src/main/k8s</directory>
-										<includes>
-											<include>app.yaml</include>
-										</includes>
-									</resource>
-								</resources>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>copy-dependencies</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>copy-dependencies</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${copied.libs.dir}</outputDirectory>
-							<overWriteReleases>false</overWriteReleases>
-							<overWriteSnapshots>false</overWriteSnapshots>
-							<overWriteIfNewer>true</overWriteIfNewer>
-							<overWriteIfNewer>true</overWriteIfNewer>
-							<includeScope>runtime</includeScope>
-							<excludeScope>test</excludeScope>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		  </plugins>
+			</plugins>
 	</pluginManagement>
 	</build>
 
@@ -144,7 +50,7 @@
     <artifactId>ojdbc8</artifactId>
     <version>19.6.0.0</version>
 </dependency>
-<dependency>
+		<dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-data-jdbc</artifactId>
 </dependency>

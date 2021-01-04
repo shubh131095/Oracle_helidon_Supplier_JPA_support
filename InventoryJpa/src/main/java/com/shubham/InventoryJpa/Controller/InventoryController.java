@@ -23,17 +23,13 @@ public class InventoryController
   @PostMapping(value = "/addInventory")
   public String addinventory( @RequestParam("itemid") String inventoryId )
   {
-    System.out.println(
-      "here add"
-    );
+
         return this.inventoryService.addInventory( inventoryId );
   }
   @DeleteMapping(value = "/removeInventory")
   public String removeInventory( @RequestParam("itemid") String inventoryId )
   {
-    System.out.println(
-      "here delete"
-    );
+
     return this.inventoryService.removeInventory( inventoryId );
   }
   @GetMapping(value = "/getInventory")

@@ -5,6 +5,7 @@ import com.shubham.InventoryJpa.Repository.InventoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
+
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
@@ -15,18 +16,15 @@ public class InventoryService
   @Autowired
   private InventoryRepository inventoryRepository;
 
-  @Autowired
-  DataSourceConfig _dataSourceConfig;
 
   @Transactional(
     dontRollbackOn = {EntityNotFoundException.class}
   )
   public String addInventory( String inventoryId)
   {
-
     System.out.println("here in add service");
     System.out.println("Inventory value in service:- " + inventoryId );
-    Inventory inv = null;
+    Inventory inv ;
       if(inventoryId == null || inventoryId.isEmpty())
       {
         return "inventoryCount for" + " " + "is" + 0;
@@ -36,7 +34,7 @@ public class InventoryService
 
           inventoryRepository.setInventoryCountById( inventoryId );
           inv = inventoryRepository.findById( inventoryId ).orElse( new Inventory() );
-          return "inventoryCount for" + inv.getInventoryId() + "is" + inv.getInventoryCount();
+        return "inventoryCount for " + inv.getInventoryId() + " is:-" + inv.getInventoryCount();
       }
   }
 
@@ -47,7 +45,7 @@ public class InventoryService
   {
     System.out.println("here in delete service");
     System.out.println("Inventory value in service:- " + inventoryId );
-    Inventory inv = null;
+    Inventory inv ;
     if(inventoryId == null || inventoryId.isEmpty())
     {
       return "inventoryCount for" + " "+ "is" + 0;
@@ -56,7 +54,7 @@ public class InventoryService
     {
       inventoryRepository.deleteInventoryCountById( inventoryId );
       inv = inventoryRepository.findById( inventoryId ).orElse( new Inventory() );
-      return "inventoryCount for" + inv.getInventoryId() + "is" + inv.getInventoryCount();
+      return "inventoryCount for " + inv.getInventoryId() + " is:-" + inv.getInventoryCount();
     }
   }
 
@@ -64,20 +62,19 @@ public class InventoryService
   public String getInventory( String inventoryId)
   {
 
-
     System.out.println("here in get service");
     System.out.println("Inventory value in service:- " + inventoryId );
     System.out.println("inventoryId :- " +inventoryId);
-    Inventory inv = null;
+    Inventory inv ;
     if(inventoryId == null || inventoryId.isEmpty())
     {
-      return "suckerr";
+      return "inventoryCount for " + " "+ "is:-" + 0;
     }
     else
     {
       inv = inventoryRepository.findById( inventoryId ).orElse( new Inventory() );
       System.out.println(inv);
-      return "inventoryCount for" + inv.getInventoryId() + "is" + inv.getInventoryCount();
+      return "inventoryCount for " + inv.getInventoryId() + " is:-" + inv.getInventoryCount();
     }
   }
 }
